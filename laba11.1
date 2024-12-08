@@ -1,0 +1,94 @@
+#include <iostream> 
+#include <stdio.h>
+#include <cstdio>
+#include <fstream>
+#include <cstdlib>
+#include <string>
+
+using namespace std;
+
+
+int main() {
+	setlocale(LC_ALL, "ru");
+	int val1 = 0;
+	int val2 = 0;
+	int value;
+	int val3 = 0;
+	int val4 = 0;
+	int x;
+	while (true) {
+		cout << "1-записать файл" << endl;
+		cout << "2-чтение файла" << endl;
+		cout << "0-выход" << endl;
+		
+		int v;
+		cin >> v;
+		if (v == 1) {
+			string name;
+			cout << "введите название файла" << endl;
+			cin >> name;
+			ofstream f;
+			f.open(name);
+			if (!f.is_open()) {
+				cout << "ошибка" << endl;
+			}
+			else {
+				cout << "файл открыт" << endl;
+				cout << "сколько чисел записать?" << endl;
+				cin >> value;
+				for (int i = 0; i < value; i++) {
+					cout << "введите число" << i + 1 << endl;
+					cin >> x;
+					f << x << " ";
+					if (x < 0) {
+						val1++;
+					}
+					if (x > 0) {
+						val2++;
+					}
+				}
+
+			}
+
+			f.close();
+			cout << "отрицательные" << val1 << "\t" << "пожительные" << val2 << endl;
+		}
+		else if (v == 2) {
+			string name;
+			cout << "введите адресс файла" << endl;
+			cin >> name;
+			ifstream f1;
+			f1.open(name);
+			if (!f1.is_open()) {
+				cout << "ошибка" << endl;
+			}
+			else {
+				cout << "файл открыт" << endl;
+				double read;
+				while (f1 >> read) {
+					if (read > 0) {
+						val3++;
+					}
+					if (read < 0) {
+						val4++;
+					}
+					cout << read << "\t";
+				}
+				cout << endl;
+				cout << "кол-во отрицательных:" << val4 << endl;
+				cout << "кол-во положительных:" << val3 << endl;
+			}
+			
+			f1.close();
+		}
+		else if (v == 0) {
+			cout << "программа завершена" << endl;
+			break;
+		}
+		else {
+			cout << "вы ввели неверно" << endl;
+			continue;
+		}
+	}
+	return 0;
+}
